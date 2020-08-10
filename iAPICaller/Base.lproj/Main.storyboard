@@ -99,7 +99,13 @@
                             <outlet property="delegate" destination="J9A-Qo-bKw" id="IEs-ip-9US"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Country List" id="DOH-cG-TpC"/>
+                    <navigationItem key="navigationItem" title="Country List" id="DOH-cG-TpC">
+                        <barButtonItem key="rightBarButtonItem" title="Refresh" image="arrow.clockwise" catalog="system" id="pu4-Re-rZs">
+                            <connections>
+                                <action selector="OnRefreshButtonClicked:" destination="J9A-Qo-bKw" id="hVk-2W-pgJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mPY-zh-FWL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -125,4 +131,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="137.4384236453202"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
+    </resources>
 </document>

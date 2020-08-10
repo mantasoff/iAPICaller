@@ -18,7 +18,6 @@ class ServerListTableViewController: UITableViewController {
         if serverBrain == nil {
             serverBrain = ServerBrain()
         }
-        
     }
 
     // MARK: - Table view data source
@@ -41,5 +40,22 @@ class ServerListTableViewController: UITableViewController {
         }
         
         return cell
+    }
+    
+    //MARK: - Actions
+    @IBAction func OnRefreshButtonClicked(_ sender: UIBarButtonItem) {
+        if serverBrain != nil, serverBrain?.token != nil {
+            APICaller().fetchServers(token: serverBrain!.token) { (servers) in
+                self.serverBrain?.servers = servers
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    //MARK: - UI Related Functions
+    func reloadData() {
+        tableView.reloadData()
     }
 }
