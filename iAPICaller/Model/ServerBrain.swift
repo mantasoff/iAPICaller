@@ -9,5 +9,8 @@
 import Foundation
 
 class ServerBrain {
-    
+    var servers: [Server] = []
+    var token: String = ""
+    var userName: String = ""
+    var password: String = ""
 }

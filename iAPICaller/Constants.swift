@@ -12,8 +12,18 @@ struct K {
     struct cellNames {
         static let CountryTableViewCell = "CountryTableViewCell"
     }
+    struct requests {
+        static let tokenURL = "https://playground.tesonet.lt/v1/tokens"
+        static let locationURL = "https://playground.tesonet.lt/v1/servers"
+    }
+    
+    struct jsonIdentifiers {
+        static let usernameIdentifier = "username"
+        static let passwordIdentifier = "password"
+        static let tokenIdentifier = "token"
+    }
     
     struct segues {
-        //static let recipesToCreate = "RecipesToCreate"
+        static let loginToServers = "LoginToServers"
     }
 }

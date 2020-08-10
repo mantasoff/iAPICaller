@@ -21,6 +21,7 @@
 		AB48C66224DE87FE0047B6B6 /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C66024DE87FE0047B6B6 /* CountryTableViewCell.swift */; };
 		AB48C66324DE87FE0047B6B6 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB48C66124DE87FE0047B6B6 /* CountryTableViewCell.xib */; };
 		AB48C66524DE8A450047B6B6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C66424DE8A450047B6B6 /* Constants.swift */; };
+		AB92ACFB24DFB1AB00040A2F /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92ACFA24DFB1AB00040A2F /* Server.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		AB48C66024DE87FE0047B6B6 /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
 		AB48C66124DE87FE0047B6B6 /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
 		AB48C66424DE8A450047B6B6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		AB92ACFA24DFB1AB00040A2F /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				AB48C65A24DE85D80047B6B6 /* APICaller.swift */,
 				AB48C65C24DE85FB0047B6B6 /* ServerBrain.swift */,
+				AB92ACFA24DFB1AB00040A2F /* Server.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				AB48C65F24DE86230047B6B6 /* ServerListTableViewController.swift in Sources */,
 				AB48C65B24DE85D80047B6B6 /* APICaller.swift in Sources */,
 				AB48C63524DE7F890047B6B6 /* SceneDelegate.swift in Sources */,
+				AB92ACFB24DFB1AB00040A2F /* Server.swift in Sources */,
 				AB48C66524DE8A450047B6B6 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
