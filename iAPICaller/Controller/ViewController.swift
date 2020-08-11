@@ -12,16 +12,40 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var errorTextLabel: UILabel!
     var serverBrain = ServerBrain()
+    
+    //MARK: - View functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        userNameTextField.delegate = self
+        passwordTextField.delegate = self
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        resetToInitialValues()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        resetToInitialValues()
+    }
+    
     //MARK: - Button press functions
     @IBAction func onLoginPressed(_ sender: UIButton) {
         if let userName = userNameTextField.text, let password = passwordTextField.text {
             APICaller().fetchToken(userName: userName, password: password) { (token, errorText) in
-                if errorText == nil && token != nil {
+                if errorText != nil {
+                    DispatchQueue.main.async {
+                        self.showErrorText(errorText: errorText!)
+                    }
+                    return
+                }
+                
+                if token != nil {
                     self.serverBrain.token = token!
                     APICaller().fetchServers(token: token!) { (servers) in
                         self.serverBrain.servers = servers
@@ -40,6 +64,26 @@ class ViewController: UIViewController {
             let serverListTableViewController = segue.destination as! ServerListTableViewController;
             serverListTableViewController.serverBrain = serverBrain
         }
+    }
+    
+    //MARK: - UI Related Functions
+    private func resetToInitialValues() {
+        userNameTextField.text = ""
+        passwordTextField.text = ""
+        errorTextLabel.isHidden = true
+    }
+    
+    private func showErrorText(errorText: String) {
+        errorTextLabel.text = "Woops: \(errorText)"
+        errorTextLabel.isHidden = false
+    }
+}
+
+//MARK: - Delegates
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

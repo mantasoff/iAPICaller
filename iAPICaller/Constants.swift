@@ -21,9 +21,18 @@ struct K {
         static let usernameIdentifier = "username"
         static let passwordIdentifier = "password"
         static let tokenIdentifier = "token"
+        static let messageIdentifier = "message"
+    }
+    
+    struct jsonValues {
+        static let unauthorized = "Unauthorized"
     }
     
     struct segues {
         static let loginToServers = "LoginToServers"
+    }
+    
+    struct responses {
+        
     }
 }

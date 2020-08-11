@@ -21,11 +21,17 @@ struct APICaller {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if error != nil {
+                if (error != nil) {
                     print(error?.localizedDescription ?? "No data")
                     callback(nil, error?.localizedDescription)
                     return
                 }
+                
+                if let safeResponse = response, self.isError(response: safeResponse) {
+                    callback(nil, "Unauthorized, try again :(")
+                    return
+                }
+                
                 if data != nil {
                     let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
                     if let responseJSON = responseJSON as? [String: String] {
@@ -88,5 +94,14 @@ struct APICaller {
             print(error)
             return nil
         }
+    }
+    
+    private func isError(response: URLResponse) -> Bool {
+        if let httpResponse = response as? HTTPURLResponse {
+            if (httpResponse.statusCode < 600) && (httpResponse.statusCode >= 400) {
+                return true
+            }
+        }
+        return false
     }
 }
