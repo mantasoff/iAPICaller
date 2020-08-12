@@ -53,6 +53,7 @@ class ServerListTableViewController: UITableViewController {
         if serverBrain != nil, serverBrain?.token != nil {
             APICaller().fetchServers(token: serverBrain!.token) { (servers) in
                 self.serverBrain?.servers = servers
+                self.servers = servers
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

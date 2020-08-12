@@ -87,7 +87,6 @@ struct APICaller {
     private func decodeServers(from data: Data) -> [Server]? {
         do {
             let decoder = JSONDecoder()
-            //decoder.keyDecodingStrategy = .convertFromSnakeCase
             let response = try decoder.decode(Array<Server>.self, from: data)
             return response
         } catch {
