@@ -51,8 +51,7 @@ class ServerListTableViewController: UITableViewController {
     //MARK: - Actions
     @IBAction func OnRefreshButtonClicked(_ sender: UIBarButtonItem) {
         if serverBrain != nil, serverBrain?.token != nil {
-            APICaller().fetchServers(token: serverBrain!.token) { (servers) in
-                self.serverBrain?.servers = servers
+            serverBrain!.fetchServers() { (servers) in
                 self.servers = servers
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -62,10 +61,6 @@ class ServerListTableViewController: UITableViewController {
     }
     
     //MARK: - UI Related Functions
-    func reloadData() {
-        tableView.reloadData()
-    }
-
     @IBAction func searchDidEndEditting(_ sender: UITextField) {
         servers = serverBrain?.filterServers(filter: sender.text ?? "")
         tableView.reloadData()

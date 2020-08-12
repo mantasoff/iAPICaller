@@ -18,47 +18,42 @@ class ViewController: UIViewController {
     //MARK: - View functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userNameTextField.delegate = self
         passwordTextField.delegate = self
+        
+        serverBrain.tokenURL = K.requests.tokenURL
+        serverBrain.serverURL = K.requests.serverURL
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        resetToInitialValues()
+        resetToInitialState()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        resetToInitialValues()
+        resetToInitialState()
     }
     
     //MARK: - Button press functions
     @IBAction func onLoginPressed(_ sender: UIButton) {
         if let userName = userNameTextField.text, let password = passwordTextField.text {
-            APICaller().fetchToken(userName: userName, password: password) { (token, errorText) in
-                if errorText != nil {
-                    DispatchQueue.main.async {
-                        self.showErrorText(errorText: errorText!)
-                    }
-                    return
-                }
-                
-                if token != nil {
-                    self.serverBrain.token = token!
-                    APICaller().fetchServers(token: token!) { (servers) in
-                        self.serverBrain.servers = servers
-                        DispatchQueue.main.async {
-                            self.performSegue(withIdentifier: K.segues.loginToServers, sender: self)
-                        }
-                    }
+            serverBrain.userName = userName
+            serverBrain.password = password
+            serverBrain.onRequestError = showErrorText
+            
+            serverBrain.fetchToken { (String) in
+                self.serverBrain.fetchServers { (servers) in
+                    self.segueToTableView()
                 }
             }
         }
     }
     
-    //MARK: - Segue preparation functions
+    //MARK: - Segue related functions
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.segues.loginToServers {
             let serverListTableViewController = segue.destination as! ServerListTableViewController;
@@ -66,16 +61,24 @@ class ViewController: UIViewController {
         }
     }
     
+    private func segueToTableView() {
+        DispatchQueue.main.async {
+           self.performSegue(withIdentifier: K.segues.loginToServers, sender: self)
+        }
+    }
+    
     //MARK: - UI Related Functions
-    private func resetToInitialValues() {
+    private func resetToInitialState() {
         userNameTextField.text = ""
         passwordTextField.text = ""
         errorTextLabel.isHidden = true
     }
     
     private func showErrorText(errorText: String) {
-        errorTextLabel.text = "Woops: \(errorText)"
-        errorTextLabel.isHidden = false
+        DispatchQueue.main.async {
+            self.errorTextLabel.text = "Woops: \(errorText)"
+            self.errorTextLabel.isHidden = false
+        }
     }
 }
 

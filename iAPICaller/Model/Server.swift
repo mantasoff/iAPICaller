@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Server: Codable {
+class Server: Decodable {
     var name: String = "";
     var distance: Int = 0;
 }

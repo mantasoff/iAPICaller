@@ -14,7 +14,7 @@ struct K {
     }
     struct requests {
         static let tokenURL = "https://playground.tesonet.lt/v1/tokens"
-        static let locationURL = "https://playground.tesonet.lt/v1/servers"
+        static let serverURL = "https://playground.tesonet.lt/v1/servers"
     }
     
     struct jsonIdentifiers {
