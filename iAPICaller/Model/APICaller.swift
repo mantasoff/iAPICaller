@@ -26,7 +26,7 @@ struct APICaller {
             
                 if let safeResponse = response, self.isError(response: safeResponse) {
                     let HTTPresponse = safeResponse as? HTTPURLResponse
-                    let responseError = NSError(domain: "APICaller", code: HTTPresponse?.statusCode ?? 0, userInfo: [NSLocalizedDescriptionKey: "Unknown error"])
+                    let responseError = NSError(domain: "APICaller", code: HTTPresponse?.statusCode ?? 0, userInfo: [NSLocalizedDescriptionKey: "Unauthorized :("])
                     seal.reject(responseError)
                     return
                 }

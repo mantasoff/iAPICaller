@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         
+        errorTextLabel.isHidden = true
+        
         serverBrain.tokenURL = K.requests.tokenURL
         serverBrain.serverURL = K.requests.serverURL
     }
@@ -29,13 +31,12 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        resetToInitialState()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        resetToInitialState()
+        
     }
     
     //MARK: - Button press functions
@@ -50,6 +51,7 @@ class ViewController: UIViewController {
                 return self.serverBrain.fetchServers()
             }
             .done {_ in
+                self.resetToInitialState()
                 self.segueToTableView()
             }
             .catch({ error in
