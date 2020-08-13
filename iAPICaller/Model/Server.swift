@@ -11,4 +11,9 @@ import Foundation
 class Server: Decodable {
     var name: String = "";
     var distance: Int = 0;
+    
+    init(name: String, distance: Int) {
+        self.name = name
+        self.distance = distance
+    }
 }

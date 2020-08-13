@@ -10,7 +10,7 @@ import Foundation
 
 struct K {
     struct cellNames {
-        static let CountryTableViewCell = "CountryTableViewCell"
+        static let countryTableViewCell = "CountryTableViewCell"
     }
     struct requests {
         static let tokenURL = "https://playground.tesonet.lt/v1/tokens"
@@ -30,9 +30,5 @@ struct K {
     
     struct segues {
         static let loginToServers = "LoginToServers"
-    }
-    
-    struct responses {
-        
     }
 }

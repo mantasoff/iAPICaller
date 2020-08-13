@@ -15,7 +15,7 @@ class ServerListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "CountryTableViewCell", bundle: nil), forCellReuseIdentifier: K.cellNames.CountryTableViewCell)
+        tableView.register(UINib(nibName: "CountryTableViewCell", bundle: nil), forCellReuseIdentifier: K.cellNames.countryTableViewCell)
         searchTextField.delegate = self
         
         if serverBrain == nil {
@@ -37,7 +37,7 @@ class ServerListTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellNames.CountryTableViewCell, for: indexPath) as! CountryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellNames.countryTableViewCell, for: indexPath) as! CountryTableViewCell
         
         if servers != nil {
             let server = servers![indexPath.row]

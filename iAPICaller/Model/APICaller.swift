@@ -11,7 +11,10 @@ import Foundation
 struct APICaller {
     
     //MARK: - API Request functions
-    func callAPI(with request: URLRequest, sessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default, responseParser:  ((Data) -> (Any))?,callback: @escaping (Any?,String?) ->()) {
+    func callAPI(with request: URLRequest,
+                 sessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default,
+                 responseParser:  ((Data) -> (Any))?,
+                 callback: @escaping (Any?,String?) ->()) {
         let session = URLSession(configuration: sessionConfiguration)
         
         let task = session.dataTask(with: request) { data, response, error in
@@ -39,6 +42,7 @@ struct APICaller {
 
     private func isError(response: URLResponse) -> Bool {
         if let httpResponse = response as? HTTPURLResponse {
+            
             if (httpResponse.statusCode < 600) && (httpResponse.statusCode >= 400) {
                 return true
             }

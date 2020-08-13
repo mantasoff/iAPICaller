@@ -105,10 +105,7 @@ class ServerBrain {
         }
         
         let filteredServers = servers.filter { (server) -> Bool in
-            if server.name.lowercased().contains(filter.lowercased()) {
-                return true
-            }
-            return false
+            return server.name.lowercased().contains(filter.lowercased()) 
         }
         
         return filteredServers
