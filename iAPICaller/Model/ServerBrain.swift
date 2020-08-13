@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 class ServerBrain {
     var servers: [Server] = []
@@ -18,59 +19,60 @@ class ServerBrain {
     var onRequestError: ((String) -> ())?
     
     //MARK: - Request functions
-    func fetchToken(onTokenFetch: @escaping (String) -> ()) {
-        let url = URL(string: tokenURL)
-        var request = URLRequest(url: url!)
-        let loginInformation = buildLoginJSON(userName: userName, password: password)
-        
-        request.httpMethod = "POST"
-        request.httpBody = loginInformation
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        APICaller().callAPI(with: request, responseParser: parseToken, callback: { (parsedResponse, errorString) in
-            if errorString != nil {
-                if self.onRequestError != nil {
-                    self.onRequestError!(errorString!)
-                }
-                return
-            }
+    func fetchToken() -> Promise<String> {
+        return Promise { seal in
+            let url = URL(string: tokenURL)
+            var request = URLRequest(url: url!)
+            let loginInformation = buildLoginJSON(userName: userName, password: password)
             
-            if parsedResponse != nil, let tokenString = parsedResponse as? String {
-                self.token = tokenString
-                onTokenFetch(self.token)
+            request.httpMethod = "POST"
+            request.httpBody = loginInformation
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            APICaller().callAPI(with: request, responseParser: parseToken)
+            .done { parsedResponse in
+                if parsedResponse != nil, let tokenString = parsedResponse as? String {
+                    self.token = tokenString
+                    seal.fulfill(tokenString)
+                }
             }
-        })
+            .catch { error in
+                print(error.localizedDescription)
+                seal.reject(error)
+            }
+        }
     }
     
-    func fetchServers(onServerFetch: @escaping ([Server]) -> ()) {
-        if token.isEmpty {
-            print("The Token is empty")
-            return
-        }
-        
-        let authorizationToken = "Bearer \(token)"
-        let url = URL(string: serverURL)
-        
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.httpAdditionalHeaders = ["Authorization": authorizationToken]
-        
-        var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
-        
-        APICaller().callAPI(with: request, sessionConfiguration: sessionConfig, responseParser: decodeServers, callback: { (parsedResponse, errorString) in
-            if errorString != nil {
-                if self.onRequestError != nil {
-                    self.onRequestError!(errorString!)
-                }
+    func fetchServers() -> Promise<[Server]> {
+        return Promise { seal in
+            if token.isEmpty {
+                print("The Token is empty")
                 return
             }
             
-            if parsedResponse != nil, let parsedServers = parsedResponse as? [Server] {
-                self.servers = parsedServers
-                onServerFetch(parsedServers)
+            let authorizationToken = "Bearer \(token)"
+            let url = URL(string: serverURL)
+            
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.httpAdditionalHeaders = ["Authorization": authorizationToken]
+            
+            var request = URLRequest(url: url!)
+            request.httpMethod = "GET"
+            
+            APICaller().callAPI(with: request, sessionConfiguration: sessionConfig, responseParser: decodeServers)
+            .done { parsedResponse in
+                if parsedResponse != nil, let parsedServers = parsedResponse as? [Server] {
+                    self.servers = parsedServers
+                    seal.fulfill(parsedServers)
+                }
             }
-        })
+            .catch { error in
+                seal.reject(error)
+            }
+        
+        }
     }
+        
     
     //MARK: - JSON parsing functions
     private func buildLoginJSON(userName: String, password: String) -> Data? {

@@ -15,9 +15,12 @@ class iAPICallerTests: XCTestCase {
         let request = URLRequest(url: url)
         let expecation = expectation(description: "API Caller testing to see if it gives a positive result")
         
-        APICaller().callAPI(with: request, responseParser: nil) { (data, errorText) in
-            XCTAssertNil(errorText)
+        APICaller().callAPI(with: request, responseParser: nil)
+        .done { response in
             expecation.fulfill()
+        }
+        .catch { error in
+            XCTAssertNil(error)
         }
         
         wait(for: [expecation], timeout: 2)
@@ -35,15 +38,20 @@ class iAPICallerTests: XCTestCase {
     
     func testTokenFetching() {
         let expecation = expectation(description: "Server testing to see if it returns a token")
-        
         let serverBrain = ServerBrain()
+        
         serverBrain.userName = "tesonet"
         serverBrain.password = "partyanimal"
         serverBrain.tokenURL = K.requests.tokenURL
-        serverBrain.fetchToken { (token) in
+        
+        _ = serverBrain.fetchToken()
+        .done { token in
             XCTAssertNotNil(token)
             expecation.fulfill()
-        }
+        }.catch({ error in
+            XCTAssertNil(error)
+            expecation.fulfill()
+        })
         
         wait(for: [expecation], timeout: 2)
     }

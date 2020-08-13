@@ -7,37 +7,41 @@
 //
 
 import Foundation
-
+import PromiseKit
 struct APICaller {
     
     //MARK: - API Request functions
     func callAPI(with request: URLRequest,
                  sessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default,
-                 responseParser:  ((Data) -> (Any))?,
-                 callback: @escaping (Any?,String?) ->()) {
-        let session = URLSession(configuration: sessionConfiguration)
+                 responseParser:  ((Data) -> (Any))?) -> Promise<Any?> {
+        return Promise { seal in
+            let session = URLSession(configuration: sessionConfiguration)
         
-        let task = session.dataTask(with: request) { data, response, error in
-            if (error != nil) {
-                print(error?.localizedDescription ?? "No data")
-                callback(nil, error?.localizedDescription)
-                return
-            }
-            
-            if let safeResponse = response, self.isError(response: safeResponse) {
-                callback(nil, "Something went wrong, try again :(")
-                return
-            }
-            
-            if data != nil {
-                if responseParser != nil {
-                    let parsedResponse = responseParser!(data!)
-                    callback(parsedResponse, nil)
+            let task = session.dataTask(with: request) { data, response, error in
+                if (error != nil) {
+                    print(error!.localizedDescription)
+                    seal.reject(error!)
+                    return
                 }
+            
+                if let safeResponse = response, self.isError(response: safeResponse) {
+                    let HTTPresponse = safeResponse as? HTTPURLResponse
+                    let responseError = NSError(domain: "APICaller", code: HTTPresponse?.statusCode ?? 0, userInfo: [NSLocalizedDescriptionKey: "Unknown error"])
+                    seal.reject(responseError)
+                    return
+                }
+            
+                if data != nil {
+                    if responseParser != nil {
+                        let parsedResponse = responseParser!(data!)
+                        seal.fulfill(parsedResponse)
+                        return
+                    }
+                }
+                seal.fulfill(nil)
             }
-            callback(nil,nil)
+            task.resume()
         }
-        task.resume()
     }
 
     private func isError(response: URLResponse) -> Bool {

@@ -45,11 +45,16 @@ class ViewController: UIViewController {
             serverBrain.password = password
             serverBrain.onRequestError = showErrorText
             
-            serverBrain.fetchToken { (String) in
-                self.serverBrain.fetchServers { (servers) in
-                    self.segueToTableView()
-                }
+            _ = serverBrain.fetchToken()
+            .then { token in
+                return self.serverBrain.fetchServers()
             }
+            .done {_ in
+                self.segueToTableView()
+            }
+            .catch({ error in
+                self.showErrorText(errorText: error.localizedDescription)
+            })
         }
     }
     
