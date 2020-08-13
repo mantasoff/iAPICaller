@@ -5,9 +5,14 @@ This is a simple API caller application. The main purpose: call an _API_ with th
 ## Getting Started
 
 - Clone the project
+- Use _pod install_ to install the needed dependencies
 - Open the project
 - Click _run_ on the specified device
 - Enjoy
+
+### Dependencies
+
+- The project is using **PromiseKit** for callbacks
 
 ### Prerequisites
 
