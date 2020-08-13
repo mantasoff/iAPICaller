@@ -78,7 +78,7 @@ class ServerBrain {
     private func buildLoginJSON(userName: String, password: String) -> Data? {
         let json = [K.jsonIdentifiers.usernameIdentifier: userName, K.jsonIdentifiers.passwordIdentifier: password]
         let jsonData = try? JSONEncoder().encode(json)
-        return jsonData ?? nil
+        return jsonData
     }
     
     private func parseToken(from data: Data) -> String {
