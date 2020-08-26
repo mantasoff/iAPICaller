@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorTextLabel: UILabel!
-    var serverBrain = ServerBrain()
+    var serverBrain = ServerBrain.shared
     
     //MARK: - View functions
     override func viewDidLoad() {
@@ -60,16 +60,6 @@ class ViewController: UIViewController {
     }
     
     //MARK: - Segue related functions
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.segues.loginToServers {
-            guard let serverListTableViewController = segue.destination as? ServerListTableViewController else {
-                print("Could not convert \(K.segues.loginToServers) controller to a \(ServerListTableViewController.self)")
-                return
-            }
-            serverListTableViewController.serverBrain = serverBrain
-        }
-    }
-    
     private func segueToTableView() {
         DispatchQueue.main.async {
            self.performSegue(withIdentifier: K.segues.loginToServers, sender: self)

@@ -30,7 +30,7 @@ class iAPICallerTests: XCTestCase {
     }
     
     func testServerFilter() {
-        let serverBrain = ServerBrain()
+        let serverBrain = ServerBrain.shared
         var servers = [Server(name: "Lithuania", distance: 4),
                        Server(name: "USA", distance: 5),
                        Server(name: "Lithuania", distance: 6)]
@@ -41,7 +41,7 @@ class iAPICallerTests: XCTestCase {
     
     func testTokenFetching() {
         let expecation = expectation(description: "Server testing to see if it returns a token")
-        let serverBrain = ServerBrain()
+        let serverBrain = ServerBrain.shared
         
         serverBrain.userName = "tesonet"
         serverBrain.password = "partyanimal"

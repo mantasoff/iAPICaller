@@ -9,7 +9,7 @@
 import UIKit
 
 class ServerListTableViewController: UITableViewController {
-    var serverBrain: ServerBrain?
+    var serverBrain = ServerBrain.shared
     var servers: [Server]?
     @IBOutlet weak var searchTextField: UITextField!
     
@@ -17,12 +17,8 @@ class ServerListTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "CountryTableViewCell", bundle: nil), forCellReuseIdentifier: K.cellNames.countryTableViewCell)
         searchTextField.delegate = self
-        
-        if serverBrain == nil {
-            serverBrain = ServerBrain()
-        }
-        
-        servers = serverBrain?.servers
+    
+        servers = serverBrain.servers
     }
 
     // MARK: - Table view data source
@@ -51,7 +47,7 @@ class ServerListTableViewController: UITableViewController {
     
     //MARK: - Actions
     @IBAction func OnRefreshButtonClicked(_ sender: UIBarButtonItem) {
-        if let serverBrain = serverBrain, !serverBrain.token.isEmpty {
+        if !serverBrain.token.isEmpty {
             _ = serverBrain.fetchServers()
             .done { servers in
                 self.servers = servers
@@ -64,7 +60,7 @@ class ServerListTableViewController: UITableViewController {
     
     //MARK: - UI Related Functions
     @IBAction func searchDidEndEditting(_ sender: UITextField) {
-        servers = serverBrain?.filterServers(filter: sender.text ?? "")
+        servers = serverBrain.filterServers(filter: sender.text ?? "")
         tableView.reloadData()
     }
 }

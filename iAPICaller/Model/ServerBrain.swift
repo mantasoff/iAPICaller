@@ -18,6 +18,10 @@ class ServerBrain {
     var serverURL: String = ""
     var onRequestError: ((String) -> ())?
     
+    //MARK: - Singleton initialization
+    static let shared = ServerBrain() 
+    private init(){}
+    
     //MARK: - Request functions
     func fetchToken() -> Promise<String> {
         return Promise { seal in
