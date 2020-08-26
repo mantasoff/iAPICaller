@@ -23,7 +23,6 @@ class ServerListTableViewController: UITableViewController {
         }
         
         servers = serverBrain?.servers
-        
     }
 
     // MARK: - Table view data source
@@ -37,10 +36,12 @@ class ServerListTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellNames.countryTableViewCell, for: indexPath) as! CountryTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.cellNames.countryTableViewCell, for: indexPath) as? CountryTableViewCell else {
+            fatalError("Unable to dequeue Server Cell")
+        }
         
-        if servers != nil {
-            let server = servers![indexPath.row]
+        if let servers = servers {
+            let server = servers[indexPath.row]
             cell.CountryNameLabel.text = server.name
             cell.DistanceLabel.text = "\(server.distance)"
         }
@@ -50,8 +51,8 @@ class ServerListTableViewController: UITableViewController {
     
     //MARK: - Actions
     @IBAction func OnRefreshButtonClicked(_ sender: UIBarButtonItem) {
-        if serverBrain != nil, serverBrain?.token != nil {
-            _ = serverBrain!.fetchServers()
+        if let serverBrain = serverBrain, !serverBrain.token.isEmpty {
+            _ = serverBrain.fetchServers()
             .done { servers in
                 self.servers = servers
                 DispatchQueue.main.async {

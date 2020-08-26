@@ -21,8 +21,14 @@ class ServerBrain {
     //MARK: - Request functions
     func fetchToken() -> Promise<String> {
         return Promise { seal in
-            let url = URL(string: tokenURL)
-            var request = URLRequest(url: url!)
+            guard let url = URL(string: tokenURL) else {
+                print("Could not parse URL: \(tokenURL)")
+                let error = NSError(domain: "APICaller", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse URL: \(tokenURL)"])
+                seal.reject(error)
+                return
+            }
+            
+            var request = URLRequest(url: url)
             let loginInformation = buildLoginJSON(userName: userName, password: password)
             
             request.httpMethod = "POST"
@@ -31,7 +37,7 @@ class ServerBrain {
             
             APICaller().callAPI(with: request, responseParser: parseToken)
             .done { parsedResponse in
-                if parsedResponse != nil, let tokenString = parsedResponse as? String {
+                if let parsedResponse = parsedResponse, let tokenString = parsedResponse as? String {
                     self.token = tokenString
                     seal.fulfill(tokenString)
                 }
@@ -51,17 +57,20 @@ class ServerBrain {
             }
             
             let authorizationToken = "Bearer \(token)"
-            let url = URL(string: serverURL)
+            guard let url = URL(string: serverURL) else {
+                print("Could not parse URL: \(serverURL)")
+                return
+            }
             
             let sessionConfig = URLSessionConfiguration.default
             sessionConfig.httpAdditionalHeaders = ["Authorization": authorizationToken]
             
-            var request = URLRequest(url: url!)
+            var request = URLRequest(url: url)
             request.httpMethod = "GET"
             
             APICaller().callAPI(with: request, sessionConfiguration: sessionConfig, responseParser: decodeServers)
             .done { parsedResponse in
-                if parsedResponse != nil, let parsedServers = parsedResponse as? [Server] {
+                if let parsedResponse = parsedResponse, let parsedServers = parsedResponse as? [Server] {
                     self.servers = parsedServers
                     seal.fulfill(parsedServers)
                 }
@@ -69,7 +78,6 @@ class ServerBrain {
             .catch { error in
                 seal.reject(error)
             }
-        
         }
     }
         
@@ -84,7 +92,7 @@ class ServerBrain {
     private func parseToken(from data: Data) -> String {
         let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
         if let parsedJSON = responseJSON as? [String: String] {
-            return(parsedJSON[K.jsonIdentifiers.tokenIdentifier]!)
+            return(parsedJSON[K.jsonIdentifiers.tokenIdentifier] ?? "")
         }
         return ""
     }

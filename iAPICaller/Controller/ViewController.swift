@@ -36,7 +36,6 @@ class ViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        
     }
     
     //MARK: - Button press functions
@@ -63,7 +62,10 @@ class ViewController: UIViewController {
     //MARK: - Segue related functions
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.segues.loginToServers {
-            let serverListTableViewController = segue.destination as! ServerListTableViewController;
+            guard let serverListTableViewController = segue.destination as? ServerListTableViewController else {
+                print("Could not convert \(K.segues.loginToServers) controller to a \(ServerListTableViewController.self)")
+                return
+            }
             serverListTableViewController.serverBrain = serverBrain
         }
     }

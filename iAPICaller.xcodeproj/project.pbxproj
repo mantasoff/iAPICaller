@@ -24,7 +24,7 @@
 		AB48C66324DE87FE0047B6B6 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB48C66124DE87FE0047B6B6 /* CountryTableViewCell.xib */; };
 		AB48C66524DE8A450047B6B6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C66424DE8A450047B6B6 /* Constants.swift */; };
 		AB92ACFB24DFB1AB00040A2F /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92ACFA24DFB1AB00040A2F /* Server.swift */; };
-		AB94365524E5D1C500EB6331 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AB94365524E5D1C500EB6331 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AB94365524E5D1C500EB6331 /* BuildFile in Embed Frameworks */,
+				AB94365524E5D1C500EB6331 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,10 @@ import XCTest
 
 class iAPICallerTests: XCTestCase {
     func testCorrectCallAPIs() {
-        let url = URL(string: "https://www.apple.com")!
+        guard let url = URL(string: "https://www.apple.com") else {
+            fatalError("Could not transform string https://www.apple.com to URL")
+        }
+        
         let request = URLRequest(url: url)
         let expecation = expectation(description: "API Caller testing to see if it gives a positive result")
         
