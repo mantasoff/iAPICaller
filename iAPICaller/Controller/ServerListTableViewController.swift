@@ -9,9 +9,10 @@
 import UIKit
 
 class ServerListTableViewController: UITableViewController {
-    var serverBrain = ServerBrain.shared
+    let serverBrain: ServerBrain
     var servers: [Server]?
     @IBOutlet weak var searchTextField: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,11 @@ class ServerListTableViewController: UITableViewController {
         searchTextField.delegate = self
     
         servers = serverBrain.servers
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        serverBrain = DI.resolve(ServerBrain.self)
+        super.init(coder: aDecoder)
     }
 
     // MARK: - Table view data source

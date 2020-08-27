@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4371D2DC01706738BF69B2EA /* Pods_iAPICaller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD7486253D422A40830DFCF /* Pods_iAPICaller.framework */; };
 		752CD91AC59B32C362C93331 /* Pods_iAPICallerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9AE7F484273E152AB6C866D /* Pods_iAPICallerTests.framework */; };
+		AB044BB524F79AC200FE312D /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB044BB424F79AC200FE312D /* DI.swift */; };
+		AB32FCEE24F7A273003CACC6 /* ServerBrainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32FCED24F7A273003CACC6 /* ServerBrainAssembly.swift */; };
 		AB48C63324DE7F890047B6B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C63224DE7F890047B6B6 /* AppDelegate.swift */; };
 		AB48C63524DE7F890047B6B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C63424DE7F890047B6B6 /* SceneDelegate.swift */; };
 		AB48C63724DE7F890047B6B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C63624DE7F890047B6B6 /* ViewController.swift */; };
@@ -55,6 +57,8 @@
 		058F61F9A3365D1E0F3C5D85 /* Pods-iAPICallerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iAPICallerTests.release.xcconfig"; path = "Target Support Files/Pods-iAPICallerTests/Pods-iAPICallerTests.release.xcconfig"; sourceTree = "<group>"; };
 		3CA5F7F7FA3387F5D32D5641 /* Pods-iAPICaller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iAPICaller.release.xcconfig"; path = "Target Support Files/Pods-iAPICaller/Pods-iAPICaller.release.xcconfig"; sourceTree = "<group>"; };
 		4BD7486253D422A40830DFCF /* Pods_iAPICaller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iAPICaller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB044BB424F79AC200FE312D /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
+		AB32FCED24F7A273003CACC6 /* ServerBrainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerBrainAssembly.swift; sourceTree = "<group>"; };
 		AB48C62F24DE7F890047B6B6 /* iAPICaller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iAPICaller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB48C63224DE7F890047B6B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB48C63424DE7F890047B6B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +125,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AB32FCEC24F7A256003CACC6 /* Assemblies */ = {
+			isa = PBXGroup;
+			children = (
+				AB32FCED24F7A273003CACC6 /* ServerBrainAssembly.swift */,
+			);
+			path = Assemblies;
+			sourceTree = "<group>";
+		};
 		AB48C62624DE7F890047B6B6 = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +157,7 @@
 		AB48C63124DE7F890047B6B6 /* iAPICaller */ = {
 			isa = PBXGroup;
 			children = (
+				AB32FCEC24F7A256003CACC6 /* Assemblies */,
 				AB48C65724DE85910047B6B6 /* Model */,
 				AB48C65824DE85980047B6B6 /* View */,
 				AB48C65924DE859C0047B6B6 /* Controller */,
@@ -172,6 +185,7 @@
 		AB48C65724DE85910047B6B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AB044BB424F79AC200FE312D /* DI.swift */,
 				AB48C65A24DE85D80047B6B6 /* APICaller.swift */,
 				AB48C65C24DE85FB0047B6B6 /* ServerBrain.swift */,
 				AB92ACFA24DFB1AB00040A2F /* Server.swift */,
@@ -377,10 +391,12 @@
 				AB48C63724DE7F890047B6B6 /* ViewController.swift in Sources */,
 				AB48C65D24DE85FB0047B6B6 /* ServerBrain.swift in Sources */,
 				AB48C63D24DE7F890047B6B6 /* iAPICaller.xcdatamodeld in Sources */,
+				AB32FCEE24F7A273003CACC6 /* ServerBrainAssembly.swift in Sources */,
 				AB48C63324DE7F890047B6B6 /* AppDelegate.swift in Sources */,
 				AB48C66224DE87FE0047B6B6 /* CountryTableViewCell.swift in Sources */,
 				AB48C65F24DE86230047B6B6 /* ServerListTableViewController.swift in Sources */,
 				AB48C65B24DE85D80047B6B6 /* APICaller.swift in Sources */,
+				AB044BB524F79AC200FE312D /* DI.swift in Sources */,
 				AB48C63524DE7F890047B6B6 /* SceneDelegate.swift in Sources */,
 				AB92ACFB24DFB1AB00040A2F /* Server.swift in Sources */,
 				AB48C66524DE8A450047B6B6 /* Constants.swift in Sources */,

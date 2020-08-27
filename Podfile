@@ -7,6 +7,7 @@ target 'iAPICaller' do
 
   # Pods for iAPICaller
 pod "PromiseKit", "~> 6.8"
+pod 'Swinject'
   target 'iAPICallerTests' do
     inherit! :search_paths
     

@@ -13,7 +13,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorTextLabel: UILabel!
-    var serverBrain = ServerBrain.shared
+    var serverBrain: ServerBrain
+    
+    //init(serverBrain: ServerBrain) {
+    //    self.serverBrain = serverBrain
+    //}
+    
+    required init?(coder aDecoder: NSCoder) {
+        serverBrain = DI.resolve(ServerBrain.self)
+        super.init(coder: aDecoder)
+    }
     
     //MARK: - View functions
     override func viewDidLoad() {
