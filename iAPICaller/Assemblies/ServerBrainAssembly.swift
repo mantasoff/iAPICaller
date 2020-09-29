@@ -9,8 +9,12 @@ import Swinject
 
 class ServerBrainAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(ServerBrain.self) { _ in
-            ServerBrain()
+        container.register(KeychainManager.self) { _ in
+            KeychainManager(service: "playground.tesonet.lt")
+        }
+        
+        container.register(ServerBrain.self) { r in
+            ServerBrain(keychainManager: r.resolve(KeychainManager.self)!)
         }.inObjectScope(.container)
         
         //container.register(ViewController.self) { r in

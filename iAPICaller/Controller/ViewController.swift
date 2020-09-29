@@ -36,12 +36,17 @@ class ViewController: UIViewController {
         serverBrain.tokenURL = K.requests.tokenURL
         serverBrain.serverURL = K.requests.serverURL
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if serverBrain.isPasswordExistant() {
+            performSegue(withIdentifier: K.segues.loginToServers, sender: self)
+        }
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)

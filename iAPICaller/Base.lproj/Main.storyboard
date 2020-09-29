@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jgj-5x-Blk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jgj-5x-Blk">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -104,7 +104,7 @@
         <!--Country List 🇱🇹-->
         <scene sceneID="DfU-ti-3UF">
             <objects>
-                <tableViewController id="J9A-Qo-bKw" customClass="ServerListTableViewController" customModule="iAPICaller" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="serverList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="J9A-Qo-bKw" customClass="ServerListTableViewController" customModule="iAPICaller" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S61-aj-6jC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,12 +119,23 @@
                                 <action selector="searchDidEndEditting:" destination="J9A-Qo-bKw" eventType="editingDidEnd" id="e9C-UD-hhg"/>
                             </connections>
                         </textField>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" id="cfF-J4-7yA">
+                            <rect key="frame" x="0.0" y="34" width="375" height="508"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </activityIndicatorView>
                         <connections>
                             <outlet property="dataSource" destination="J9A-Qo-bKw" id="qJm-Bk-vMa"/>
                             <outlet property="delegate" destination="J9A-Qo-bKw" id="IEs-ip-9US"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Country List 🇱🇹" id="DOH-cG-TpC">
+                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="B9O-D2-CNB">
+                            <connections>
+                                <action selector="OnSignOutButtonClicked:" destination="J9A-Qo-bKw" id="VjF-gK-f9r"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Refresh" image="arrow.clockwise" catalog="system" id="pu4-Re-rZs">
                             <connections>
                                 <action selector="OnRefreshButtonClicked:" destination="J9A-Qo-bKw" id="hVk-2W-pgJ"/>
@@ -133,12 +144,14 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="cfF-J4-7yA" id="c0c-uC-BeX"/>
                         <outlet property="searchTextField" destination="aAt-Bx-eSv" id="ZOD-lh-Vt3"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="ServersToLogin" id="nWW-rg-BV4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mPY-zh-FWL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1956" y="136.69950738916256"/>
+            <point key="canvasLocation" x="2156" y="108.62068965517241"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wxs-zy-HRn">
@@ -159,6 +172,9 @@
             <point key="canvasLocation" x="136.80000000000001" y="137.4384236453202"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="nWW-rg-BV4"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Tesonet_logo_vertical" width="400" height="499"/>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>

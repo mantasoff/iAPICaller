@@ -11,6 +11,7 @@ import UIKit
 class ServerListTableViewController: UITableViewController {
     let serverBrain: ServerBrain
     var servers: [Server]?
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var searchTextField: UITextField!
     
     
@@ -18,8 +19,7 @@ class ServerListTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "CountryTableViewCell", bundle: nil), forCellReuseIdentifier: K.cellNames.countryTableViewCell)
         searchTextField.delegate = self
-    
-        servers = serverBrain.servers
+        getServersFromServerBrain()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,8 +44,8 @@ class ServerListTableViewController: UITableViewController {
         
         if let servers = servers {
             let server = servers[indexPath.row]
-            cell.CountryNameLabel.text = server.name
-            cell.DistanceLabel.text = "\(server.distance)"
+            cell.CountryNameLabel2.text = server.name
+            cell.DistanceLabel2.text = "\(server.distance)"
         }
         
         return cell
@@ -53,21 +53,30 @@ class ServerListTableViewController: UITableViewController {
     
     //MARK: - Actions
     @IBAction func OnRefreshButtonClicked(_ sender: UIBarButtonItem) {
-        if !serverBrain.token.isEmpty {
-            _ = serverBrain.fetchServers()
-            .done { servers in
-                self.servers = servers
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
+        getServersFromServerBrain()
+    }
+    @IBAction func OnSignOutButtonClicked(_ sender: UIBarButtonItem) {
+        serverBrain.removePassword()
+        performSegue(withIdentifier: K.segues.serversToLogin, sender: self)
     }
     
     //MARK: - UI Related Functions
     @IBAction func searchDidEndEditting(_ sender: UITextField) {
         servers = serverBrain.filterServers(filter: sender.text ?? "")
         tableView.reloadData()
+    }
+    
+    private func getServersFromServerBrain() {
+        activityIndicatorView.isHidden = false
+        serverBrain.fetchServers()
+        .done { servers in
+            self.servers = servers
+            self.tableView.reloadData()
+            self.activityIndicatorView.isHidden = true
+        }
+        .catch { error in
+            self.activityIndicatorView.isHidden = true
+        }
     }
 }
 

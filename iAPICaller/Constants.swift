@@ -30,5 +30,6 @@ struct K {
     
     struct segues {
         static let loginToServers = "LoginToServers"
+        static let serversToLogin = "ServersToLogin"
     }
 }

@@ -11,12 +11,16 @@ import PromiseKit
 
 class ServerBrain {
     var servers: [Server] = []
-    var token: String = ""
     var userName: String = ""
     var password: String = ""
     var tokenURL: String = ""
     var serverURL: String = ""
     var onRequestError: ((String) -> ())?
+    let keychainManager: KeychainManager
+    
+    init(keychainManager: KeychainManager) {
+        self.keychainManager = keychainManager
+    }
     
     //MARK: - Singleton initialization
     //static let shared = ServerBrain()
@@ -42,7 +46,7 @@ class ServerBrain {
             APICaller().callAPI(with: request, responseParser: parseToken)
             .done { parsedResponse in
                 if let parsedResponse = parsedResponse, let tokenString = parsedResponse as? String {
-                    self.token = tokenString
+                    self.keychainManager.setPassword(tokenString, key: "tesonetPassword")
                     seal.fulfill(tokenString)
                 }
             }
@@ -55,12 +59,17 @@ class ServerBrain {
     
     func fetchServers() -> Promise<[Server]> {
         return Promise { seal in
-            if token.isEmpty {
-                print("The Token is empty")
+            guard let password = keychainManager.getPassword(key: "tesonetPassword") else {
+                print("Password does not exist")
+                //Add an error
+                let error = NSError(domain: "APICaller", code: 0, userInfo: [NSLocalizedDescriptionKey: "Kolkas"])
+                seal.reject(error)
+                
                 return
+                
             }
             
-            let authorizationToken = "Bearer \(token)"
+            let authorizationToken = "Bearer \(password)"
             guard let url = URL(string: serverURL) else {
                 print("Could not parse URL: \(serverURL)")
                 return
@@ -84,7 +93,19 @@ class ServerBrain {
             }
         }
     }
+    
+    //MARK: - Keychain functions
+    public func removePassword() {
+        self.keychainManager.setPassword(nil, key: "tesonetPassword")
+    }
+    
+    public func isPasswordExistant() -> Bool {
+        if keychainManager.getPassword(key: "tesonetPassword") != nil {
+            return true
+        }
         
+        return false
+    }
     
     //MARK: - JSON parsing functions
     private func buildLoginJSON(userName: String, password: String) -> Data? {
