@@ -23,11 +23,11 @@
 		AB48C65D24DE85FB0047B6B6 /* ServerBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C65C24DE85FB0047B6B6 /* ServerBrain.swift */; };
 		AB48C65F24DE86230047B6B6 /* ServerListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C65E24DE86230047B6B6 /* ServerListTableViewController.swift */; };
 		AB48C66224DE87FE0047B6B6 /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C66024DE87FE0047B6B6 /* CountryTableViewCell.swift */; };
-		AB48C66324DE87FE0047B6B6 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB48C66124DE87FE0047B6B6 /* CountryTableViewCell.xib */; };
 		AB48C66524DE8A450047B6B6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB48C66424DE8A450047B6B6 /* Constants.swift */; };
 		AB92ACFB24DFB1AB00040A2F /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB92ACFA24DFB1AB00040A2F /* Server.swift */; };
 		AB94365524E5D1C500EB6331 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ABD47DE224F7B9B800994B9B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD47DE124F7B9B800994B9B /* KeychainManager.swift */; };
+		D02D92232522EC5900165CAF /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02D92222522EC5900165CAF /* CountryTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,13 +76,13 @@
 		AB48C65C24DE85FB0047B6B6 /* ServerBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerBrain.swift; sourceTree = "<group>"; };
 		AB48C65E24DE86230047B6B6 /* ServerListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListTableViewController.swift; sourceTree = "<group>"; };
 		AB48C66024DE87FE0047B6B6 /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
-		AB48C66124DE87FE0047B6B6 /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
 		AB48C66424DE8A450047B6B6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AB92ACFA24DFB1AB00040A2F /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		ABB2AD3F24E5CD2300338B62 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABD47DE124F7B9B800994B9B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		B9AE7F484273E152AB6C866D /* Pods_iAPICallerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iAPICallerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE0FC7F7C1C2AFFF3624F9D /* Pods-iAPICaller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iAPICaller.debug.xcconfig"; path = "Target Support Files/Pods-iAPICaller/Pods-iAPICaller.debug.xcconfig"; sourceTree = "<group>"; };
+		D02D92222522EC5900165CAF /* CountryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
 		D517EBAD7A65778964554FC0 /* Pods-iAPICallerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iAPICallerTests.debug.xcconfig"; path = "Target Support Files/Pods-iAPICallerTests/Pods-iAPICallerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,8 +199,8 @@
 		AB48C65824DE85980047B6B6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D02D92222522EC5900165CAF /* CountryTableViewCell.xib */,
 				AB48C66024DE87FE0047B6B6 /* CountryTableViewCell.swift */,
-				AB48C66124DE87FE0047B6B6 /* CountryTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB48C66324DE87FE0047B6B6 /* CountryTableViewCell.xib in Resources */,
+				D02D92232522EC5900165CAF /* CountryTableViewCell.xib in Resources */,
 				AB48C64224DE7F8E0047B6B6 /* LaunchScreen.storyboard in Resources */,
 				AB48C63F24DE7F8E0047B6B6 /* Assets.xcassets in Resources */,
 				AB48C63A24DE7F890047B6B6 /* Main.storyboard in Resources */,

@@ -51,16 +51,16 @@ class CountryTableViewCell: UITableViewCell {
     private func setSnapKitConstraints() {
         CountryNameLabel2.snp.makeConstraints { (label) in
             label.width.equalTo(200)
-            label.top.equalToSuperview()
-            label.left.equalToSuperview()
-            label.bottom.equalToSuperview()
+            label.top.equalToSuperview().offset(10)
+            label.left.equalToSuperview().offset(10)
+            label.bottom.equalToSuperview().offset(-10)
         }
         
         DistanceLabel2.snp.makeConstraints { label in
             label.width.equalTo(200)
-            label.top.equalToSuperview()
-            label.right.equalToSuperview().offset(-50)
-            label.bottom.equalToSuperview()
+            label.top.equalToSuperview().offset(10)
+            label.right.equalToSuperview().offset(-10)
+            label.bottom.equalToSuperview().offset(-10)
         }
     }
     

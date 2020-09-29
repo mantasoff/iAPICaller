@@ -13,6 +13,7 @@ class ServerListTableViewController: UITableViewController {
     var servers: [Server]?
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var activityIndicatorUIView: UIView!
     
     
     override func viewDidLoad() {
@@ -72,9 +73,13 @@ class ServerListTableViewController: UITableViewController {
         .done { servers in
             self.servers = servers
             self.tableView.reloadData()
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorUIView.isHidden = true
             self.activityIndicatorView.isHidden = true
         }
         .catch { error in
+            self.activityIndicatorUIView.isHidden = true
+            self.activityIndicatorView.stopAnimating()
             self.activityIndicatorView.isHidden = true
         }
     }
